@@ -1,0 +1,285 @@
+   LTE-Sim RELEASE NOTES
+=========================
+
+This file contains LTE-Sim release notes 
+(ordered from the most recent one).  
+
+Release 5.0
+===========
+
+Availability
+------------
+This release is available from these svn repositories
+        http://telematics.poliba.it/svn/LTE-Sim/
+	http://code.google.com/p/lte-sim/
+
+
+Supported platforms
+-------------------
+tested on
+       - Linux i386 Ubuntu 12.04 with g++-4.6
+       - Linux amd64 Ubuntu 12.04 with g++-4.6
+       - Linux i386 Ubuntu 10.10 with g++-4.4
+       - Linux amd64 Ubuntu 10.10 with g++-4.4
+       - Mac OS X v10.6.8
+
+New user-visible features
+-------------------------
+  - novel uplink channel quality model
+  - Downlink FLS scheduler implementations
+  - optimized event management
+  - optimized PRB allocation
+  - ameliorated UL packet scheduling implementation
+
+Bugs fixed
+----------
+  - UL transmission (the size of the packet is now computed in bytes)
+  - AM-RLC (the loop has been fixed)
+  - other little issues have been fixed
+
+Known issues
+------------
+   - Check the Zheng fast fading model: is it in dB scale or not ?
+
+
+Release 4.0
+===========
+
+Availability
+------------
+This release is available from these svn repositories
+        http://telematics.poliba.it/svn/LTE-Sim/
+	http://code.google.com/p/lte-sim/
+
+
+Supported platforms
+-------------------
+tested on
+       - Linux i386 Ubuntu 12.04 with g++-4.6
+       - Linux amd64 Ubuntu 12.04 with g++-4.6
+       - Linux i386 Ubuntu 10.10 with g++-4.4
+       - Linux amd64 Ubuntu 10.10 with g++-4.4
+       - Mac OS X v10.6.8
+
+New user-visible features
+-------------------------
+  - added the uplink round robin scheduler
+  - added the web traffic model
+
+Bugs fixed
+----------
+  - fixed the initialization of the fast fading model (now the contructor of the propagation loss model takes into the account settings in load-parameters.h)   - fixed the bug into the AM-RLC entity (now the loop will never happen)
+  - fixed the testfmw scenario (nopw the CQI changes during in both time/frequency domain)
+
+
+Known issues
+------------
+   - Check the Zheng fast fading model: is it in dB scale or not ?
+
+
+Release 3.1
+===========
+
+Availability
+------------
+This release is available from the svn repository
+        $ svn co http://telematics.poliba.it/svn/LTE-Sim/
+and from the following link:
+        http://telematics.poliba.it/images/file/piro/LTE-Sim_R3_1.tar.gz
+
+
+Supported platforms
+-------------------
+tested on
+       - Linux i386 Ubuntu 12.04 with g++-4.6
+       - Linux amd64 Ubuntu 12.04 with g++-4.6
+       - Linux i386 Ubuntu 10.10 with g++-4.4
+       - Linux amd64 Ubuntu 10.10 with g++-4.4
+       - Mac OS X v10.6.8
+
+New user-visible features
+-------------------------
+  - correct interpretation of the seed parameter
+  - updated version of the AM RLC entity
+  - support for users speed up to 350 kmph when the Rosa Zheng channel model is used
+
+Bugs fixed
+----------
+  - multi-cell-sinr-plot: a different ID is assigned to each user
+  - application trace: the output has been updated in order to be correct for both downlink and uplink
+  - the bug into the AM RLC entity has been fixed
+
+
+Known issues
+------------
+   - Check the Zheng fast fading model: is it in dB scale or not ?
+
+Release 3.0
+===========
+
+Availability
+------------
+This release is available from the svn repository
+        $ svn co http://telematics.poliba.it/svn/LTE-Sim/
+and from the following link:
+        http://telematics.poliba.it/images/file/piro/LTE-Sim_R3_0.tar.gz
+
+
+Supported platforms
+-------------------
+tested on
+       - Linux i386 Ubuntu 10.10 with g++-4.4
+       - Linux amd64 Ubuntu 10.10 with g++-4.4
+       - Mac OS X v10.6.8
+
+New user-visible features
+-------------------------
+  - Improved the test implementing uplink connections
+  - Added an enhanced UL schedulingn strategy
+  - other little changes
+
+Bugs fixed
+----------
+  - Fixed bugs related to the UL channel realization: now it is not more flat
+
+Known issues
+------------
+   - Check the Zheng fast fading model: is it in dB scale or not ?
+
+
+Release 2.1
+===========
+
+Availability
+------------
+This release is available from the svn repository
+        $ svn co http://telematics.poliba.it/svn/LTE-Sim/
+and from the following link:
+        http://telematics.poliba.it/images/file/piro/LTE-Sim_R2_1.tar.gz
+
+
+Supported platforms
+-------------------
+tested on 
+       - Linux i686 Ubuntu 10.10 with g++-4.4
+       - Mac OS X v10.6.8 
+
+New user-visible features
+-------------------------
+  - revised version of Winner II model
+  - new topology object: Streets
+  - support for the femtocell access mode
+  - new scenarios for testing femtocells and urban environment
+  - other little changes
+
+Bugs fixed
+----------
+   - TBS calculation in both AMC module and downlink packet scheduler
+
+Known issues
+------------
+   - Check the Zheng fast fading model: is it in dB scale or not ?
+
+
+Release 2.0
+===========
+
+Availability
+------------
+This release is available from the svn repository
+        $ svn co http://telematics.poliba.it/svn/LTE-Sim/
+and from the following link:
+        http://telematics.poliba.it/images/file/piro/LTE-Sim_R2_0.tar.gz
+
+
+Supported platforms
+-------------------
+tested on 
+       - Linux i686 Ubuntu 10.10 with g++-4.4
+       - Mac OS X v10.6.8 
+
+New user-visible features
+-------------------------
+  - Uplink transmission, UE buffer status reporting, maximum throughput uplink packet scheduler,
+  - manhattan mobility model
+  - the calculation of the Transport Block Size: according to the 3GPP TS 36.213 specification,
+     the TBSize is obtained by taking into the account the MCS and the number of assigned PRB
+
+Bugs fixed
+----------
+   - Fixed the TX printing of CBR applications
+   - Fixed the initialization of the ConstantMobility Model into the UserEquipment constructor
+   - Fixed #ifndef and #define name into the UserEquipment.h
+   - Fixed the computation of the TBSize
+   - Fixed some issues related to femtocells
+
+Known issues
+------------
+   - Check the Zheng fast fading model: is it in dB scale or not ? 
+
+
+
+Release 1.0 
+===========
+
+Availability
+------------
+This release is available from the svn repository
+	$ svn co http://telematics.poliba.it/svn/LTE-Sim/  
+and from the following link:
+	http://telematics.poliba.it/images/file/piro/LTE-Sim_R1_0.tar.gz
+
+
+Supported platforms
+-------------------
+tested on Linux i686 Ubuntu 10.10 with g++-4.4
+
+
+New user-visible features
+-------------------------
+   - Newer project organization
+   - TOOLS for the post processing
+   - Basic simulation scripts in bash language
+   - Jakes channel models
+   - Rosa Zheng channel models for PedA, PedB, VehA, and VehB
+   - Channel models for user speeds 0, 3, 30, 120, 150, 200, 250, 300, 350 kmph  
+
+Bugs fixed
+----------
+   - Fixed the bearer re-establishment during the HO procedure in a multi-cell environment
+   - Fixed the computation of the BLER into the error model
+   - Fixed other little problems
+
+Known issues
+------------
+
+
+Release 0.99
+===========
+
+Availability
+------------
+This release is available from: 
+http://telematics.poliba.it/images/file/piro/LTE-Sim_R0_99.tar.gz
+
+Supported platforms
+-------------------
+- Linux i686 Ubuntu 10.10
+  - g++-4.4
+
+New user-visible features
+-------------------------
+  - First public release; 
+  - Evolved Universal Terrestrial Radio Access (E-UTRAN) and the Evolved Packet System (EPS). 
+  - Single and multi-cell environments 
+  - QoS management
+  - Multi users environment
+  - User mobility
+  - Handover procedures
+  - Frequency reuse techniques
+  - Three kinds of network nodes: UE, eNB, and MME/GW
+  - Four different traffic generators
+  - Downlink Scheduling strategies
+  - AMC scheme
+  - Channel Quality Indicator feedback
+  - Models for physical layer

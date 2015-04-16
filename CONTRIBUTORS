@@ -1,0 +1,18 @@
+   
+  LTE-Sim contributors:
+==========================
+
+*  Mauricio Iturralde <mauricio.iturralde@irit.fr, mauro@miturralde.com>
+   scripts for making simulations and post elaborations.  
+
+*  Florian Schlembach <florian.schlembach@tu-ilmenau.de, fschlembach@web.de>, Jianshu Zhang <jianshu.zhang@tu-ilmenau.de>, Yao Cheng <y.cheng@tu-ilmenau.de>
+   implemented Manhattan Mobility Model, multi-cell scenario sinr plot
+
+*  Khaled Elsayed <khaled@ieee.org>
+   enhanced uplink resource scheduling
+
+* Gbolly Aiyetoro <g.aiyetoro@gmail.com>
+  WEB traffic model
+
+* Lukasz Rajewski <lukasz.rajewski@gmail.com>
+  Optimized PRB allocation

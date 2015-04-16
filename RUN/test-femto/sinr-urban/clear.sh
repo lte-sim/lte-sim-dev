@@ -1,0 +1,1 @@
+rm  TRACE/* OUTPUT/*

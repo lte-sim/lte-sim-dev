@@ -1,0 +1,110 @@
+
+      		       LTE-Sim
+
+    an open source framework to simulate LTE networks  
+    -------------------------------------------------
+
+Table of Contents:
+------------------
+
+1) An overview
+2) Getting LTE-Sim
+3) Compiling LTE-Sim
+4) Running LTE-Sim
+5) LTE-Sim  documentation
+6) How to collaborate with us
+
+
+1) An overview
+--------------
+LTE-Sim is an open source framework to simulate LTE networks.
+It encompasses several aspects of LTE networks, including 
+both the Evolved Universal Terrestrial Radio Access (E-UTRAN) 
+and the Evolved Packet System (EPS). 
+It supports single and multi-cell environments, QoS management, 
+multi users environment, user mobility, handover procedures, 
+and frequency reuse techniques. Three kinds of network nodes 
+are modeled: user equipment (UE), evolved Node B (eNB) and 
+Mobility Management Entity/Gateway (MME/GW). Four different traffic 
+generators at the application layer have been implemented and the 
+management of data radio bearer is supported. Finally, well-known 
+scheduling strategies (such as Proportional Fair, Modified Largest 
+Weighted Delay First, and Exponential Proportional Fair), AMC scheme, 
+Channel Quality Indicator feedback, frequency reuse techniques, and 
+models for physical layer have been developed.
+
+	web page: http://telematics.poliba.it/LTE-Sim
+
+
+2) Getting LTE-Sim
+------------------
+LTE-sim is available via Subversion at 
+http://telematics.poliba.it/svn/LTE-Sim/
+
+To obtain LTE-Sim enter into the your prefered folder and
+write the following syntax:
+
+	$ svn co http://telematics.poliba.it/svn/LTE-Sim/
+
+To synchronize the project repository with the local copy, you 
+can run update sub-command. The syntax is as follows:
+
+	$ svn update
+
+
+3) Compiling LTE-Sim
+--------------------
+On recent Linux systems, you can buil LTE-Sim with the
+following command:
+
+	$ make
+
+To clear the project, you can use the following command:
+
+	$ make clean
+
+
+4) Running LTE-Sim
+------------------
+In this release several LTE scenarios have been developed.
+To run a simple simulation, you can use the following command:
+
+	$ ./LTE-Sim Simple 
+
+For more details about available LTE scenario, use
+
+	$ ./LTE-Sim -h
+
+If you want to create a new LTE scenario, see tutorial and
+manual (you can find them into the DOC/ folder) for details.
+
+
+5) LTE-Sim  documentation
+-------------------------
+All of that documentation should always be available from
+the LTE-Sim website: http:://telematics.poliba.it/LTE-Sim
+but we include it in this release for ease of use.
+
+You can find it in DOC folder. This documentation includes:
+  - a tutorial
+  - a manual (not yet available!)
+
+Moreover, a dedicated mailing list has been createt at 
+http://groups.google.com/group/lte-sim/
+
+
+6) How to collaborate with us
+------------------------------
+Please, contact the author!
+
+
+
+
+--
+Giuseppe Piro
+=============
+Software manager and main developer
+2010,2011, 2012
+TELEMATICS LAB - Politecnico di Bari
+g.piro@poliba.it
+peppe@giuseppepiro.com

@@ -1,0 +1,256 @@
+#include "jakes-trace.h"
+
+
+
+void
+MacroCellUrbanAreaChannelRealization::UpdateModels ()
+{
+
+#ifdef TEST_PROPAGATION_LOSS_MODEL
+  std::cout << "\t --> UpdateModels" << std::endl;
+#endif
+
+
+  //update shadowing
+  m_shadowing = 0;
+  double probability = GetRandomVariable (101) / 100.0;
+  for (int i = 0; i < 201; i++)
+    {
+	  if (probability <= shadowing_probability[i])
+	    {
+		  m_shadowing = shadowing_value[i];
+          break;
+	    }
+    }
+
+
+
+
+  //update multipath
+  ClearMultipath ();
+
+  int numbOfSubChannels = GetSourceNode ()->GetPhy ()->GetBandwidthManager ()->GetDlSubChannels ().size ();
+
+  int samplingTime = GetSamplingPeriod () * 1000;
+
+  double speed;
+  if (GetSourceNode ()->GetNodeType () == NetworkNode::TYPE_UE)
+    {
+	  UserEquipment* ue = (UserEquipment*) GetSourceNode ();
+	  speed = ue->GetMobilityModel ()->GetSpeed ();
+    }
+  else if (GetDestinationNode ()->GetNodeType () == NetworkNode::TYPE_UE)
+    {
+	  UserEquipment* ue = (UserEquipment*) GetDestinationNode ();
+	  speed = ue->GetMobilityModel ()->GetSpeed ();
+    }
+  else
+    {
+	  speed = 0;
+    }
+
+  /*
+   * Jackes Model.
+   * Jakes popularised a model for Rayleigh fading based on summing sinusoids
+   * William C. Jakes, Editor (February 1, 1975).
+   * Microwave Mobile Communications.
+   * New York: John Wiley & Sons Inc. ISBN 0-471-43720-4
+   */
+
+
+  // number of path = M
+  //x = 1 -> M=6, x = 2 -> M=8, x = 3 -> M=10, x = 4 -> M=12
+  int x = 1 + GetRandomVariable (4);
+
+  for (int i = 0; i < numbOfSubChannels; i++)
+	{
+	  //StartJakes allow us to select a window of 0.5ms into the Jakes realization lasting 3s.
+      int startJakes = GetRandomVariable (2000);
+
+	  MultipathForTimeDomain multipathForTimeDomain;
+
+	  if (x == 1)
+		{
+		  //SELECTED 6 MULTIPLE PATH FOR JAKES MODEL
+		  if (abs(speed) == 0)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M6_v_0 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 3)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M6_v_3 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 30)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M6_v_30 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 120)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M6_v_120 [j + startJakes]);
+				}
+			}
+		}
+
+	  else if (x == 2)
+		{
+		  //SELECTED 8 MULTIPLE PATH FOR JAKES MODEL
+		  if (abs(speed) == 0)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M8_v_0 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 3)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M8_v_3 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 30)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M8_v_30 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 120)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M8_v_120 [j + startJakes]);
+				}
+			}
+		}
+
+	  else if (x == 3)
+		{
+		  //SELECTED 10 MULTIPLE PATH FOR JAKES MODEL
+		  if (abs(speed) == 0)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M10_v_0 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 3)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M10_v_3 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 30)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M10_v_30 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 120)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M10_v_120 [j + startJakes]);
+				}
+			}
+		}
+
+	  else if (x == 4)
+		{
+		  //SELECTED 12 MULTIPLE PATH FOR JAKES MODEL
+		  if (abs(speed) == 0)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M12_v_0 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 3)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M12_v_3 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 30)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M12_v_30 [j + startJakes]);
+				}
+			}
+		  if (abs(speed) == 120)
+			{
+			  for (int j = 0; j < samplingTime; j++)
+				{
+				  multipathForTimeDomain.push_back(multipath_M12_v_120 [j + startJakes]);
+				}
+			}
+		}
+
+	  else
+		{
+		  std::cout << " ERROR: Jaks's Model, incorrect M value" << std::endl;
+		  exit (1);
+		}
+
+	  m_multipath->push_back(multipathForTimeDomain);
+	}
+
+  SetLastUpdate ();
+}
+
+
+std::vector<double>
+MacroCellUrbanAreaChannelRealization::GetLoss ()
+{
+#ifdef TEST_PROPAGATION_LOSS_MODEL
+  std::cout << "\t  --> compute loss between "
+		  << GetSourceNode ()->GetIDNetworkNode () << " and "
+		  << GetDestinationNode ()->GetIDNetworkNode () << std::endl;
+#endif
+
+  if (NeedForUpdate ())
+    {
+	   UpdateModels ();
+    }
+
+  std::vector<double> loss;
+
+
+  int now_ms = Simulator::Init()->Now () * 1000;
+  int lastUpdate_ms = GetLastUpdate () * 1000;
+  int index = now_ms - lastUpdate_ms;
+
+  int nbOfSubChannels = GetSourceNode ()->GetPhy ()->GetBandwidthManager ()->GetDlSubChannels ().size ();
+
+  for (int i = 0; i < nbOfSubChannels; i++)
+    {
+	  double l = m_multipath->at (i).at (index) - GetPathLoss () - GetPenetrationLoss () - GetShadowing ();
+	  loss.push_back (l);
+
+#ifdef TEST_PROPAGATION_LOSS_MODEL
+       std::cout << "\t\t mlp = " << m_multipath->at (i).at (index)
+		  << " pl = " << GetPathLoss ()
+          << " pnl = " << GetPenetrationLoss()
+          << " sh = " << GetShadowing()
+          << " LOSS = " << l
+		  << std::endl;
+#endif
+    }
+
+  return loss;
+}

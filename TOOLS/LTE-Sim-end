@@ -1,0 +1,26 @@
+                       LTE-Sim                        
+                                                      
+    an open source framework to simulate LTE networks 
+    ------------------------------------------------- 
+                                                      
+                Author: Giuseppe Piro 
+       <g.piro@poliba.it, peppe@giuseppepiro.com>   
+
+   ******************************************************
+    LTE-Sim has been installe correctly on your mashine!
+   ******************************************************
+
+   Now you can star using LTE-Sim.
+ 
+   Please, you have to set properly parameters into 
+   src/load-paramaters.h file. 
+
+
+   Link: 
+   web:			http://telematics.poliba.it/LTE-Sim
+   mailing list:	http://groups.google.com/group/lte-sim
+
+
+   +++++++++++++++++ ENJOY the LTE-Sim +++++++++++++++++
+
+
