@@ -249,5 +249,8 @@ EnbLtePhy::ReceiveReferenceSymbols (NetworkNode* n, TransmittedSignal* s)
 
 
   user->SetUplinkChannelStatusIndicator (ulQuality);
+  if (rxSignal) {
+    delete rxSignal;
+  }
 }
 

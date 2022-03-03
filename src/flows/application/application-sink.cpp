@@ -87,7 +87,10 @@ ApplicationSink::Receive (Packet* p)
    * TX   APPLICATION_TYPE   BEARER_ID  SIZE   SRC_ID   DST_ID   TIME
    */
 
-  if (!_APP_TRACING_) return;
+  if (!_APP_TRACING_) {
+    delete p;
+    return;
+  }
 
   std::cout << "RX";
 
