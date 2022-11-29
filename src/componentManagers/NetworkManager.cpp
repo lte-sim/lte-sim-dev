@@ -332,7 +332,7 @@ NetworkManager::GetCellByID (int idCell)
     if (cell->GetIdCell() == idCell)
       return cell;
     }
-  return false;
+  return nullptr;
 }
 
 Femtocell*
@@ -348,7 +348,7 @@ NetworkManager::GetFemtoCellByID (int idFemtoCell)
 	  if (cell->GetIdCell() == idFemtoCell)
 		  return cell;
     }
-  return false;
+  return nullptr;
 }
 
 ENodeB*
@@ -366,7 +366,7 @@ NetworkManager::GetENodeBByID (int idENodeB)
       return eNodeB;
       }
     }
-  return false;
+  return nullptr;
 }
 
 ENodeB*
@@ -384,7 +384,7 @@ NetworkManager::GetENodeBByCellID (int idCell)
       return eNodeB;
       }
     }
-  return false;
+  return nullptr;
 }
 
 UserEquipment*
@@ -402,7 +402,7 @@ NetworkManager::GetUserEquipmentByID (int idUE)
       return userEquipment;
       }
     }
-  return false;
+  return nullptr;
 }
 
 Gateway*
@@ -421,7 +421,7 @@ NetworkManager::GetGatewayByID (int idGW)
       return gateway;
       }
     }
-  return false;
+  return nullptr;
 }
 
 Building*
@@ -440,7 +440,7 @@ NetworkManager::GetBuildingByID (int idBuilding)
 		  return building;
 	    }
     }
-  return false;
+  return nullptr;
 }
 
 Building*
@@ -504,7 +504,7 @@ NetworkManager::GetNetworkNodeByID (int id)
       return gateway;
       }
     }
-  return false;
+  return nullptr;
 }
 
 std::vector<UserEquipment*>*
