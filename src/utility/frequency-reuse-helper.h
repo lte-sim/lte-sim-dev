@@ -134,7 +134,8 @@ RunFrequencyReuseTechniques(int nodes, int cluster, double bandwidth)
 
           for (int i = 0; i < nodes; i++)
             {
-    	      int offset = counter * operatibeSubBands;
+    	      // int offset = counter * operatibeSubBands;
+            int offset = 0;
 
        	      BandwidthManager *s = new BandwidthManager (bandwidth, bandwidth, offset, offset);
     	      spectrum.push_back (s);
