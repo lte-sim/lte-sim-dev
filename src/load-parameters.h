@@ -28,7 +28,7 @@
 
 
 /* path */
-static std::string path ("/Users/giuseppepiro/Desktop/lte-sim/");
+static std::string path ("/home/alvin/Research/SmallCell/lte-sim-dev/");
 
 
 /* tracing */

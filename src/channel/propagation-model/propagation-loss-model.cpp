@@ -105,6 +105,7 @@ PropagationLossModel::AddLossModel (NetworkNode* src,
 
   ChannelRealization* c = GetChannelRealization (src, dst);
   std::vector<double> rxSignalValues = rxSignal->Getvalues ();
+  // this calculates the multipath fading(fastfading, pathloss, penetrationloss, shadowing)
   std::vector<double> loss = c->GetLoss ();
 
 #ifdef TEST_PROPAGATION_LOSS_MODEL
