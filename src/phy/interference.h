@@ -22,6 +22,7 @@
 
 #ifndef INTERFERENCE_H_
 #define INTERFERENCE_H_
+#include <map>
 
 class UserEquipment;
 
@@ -30,7 +31,8 @@ public:
 	Interference();
 	virtual ~Interference();
 
-	double ComputeInterference (UserEquipment *ue);
+	// double ComputeInterference (UserEquipment *ue);
+  std::map<int, double> ComputeInterference (UserEquipment *ue);
 };
 
 #endif /* INTERFERENCE_H_ */

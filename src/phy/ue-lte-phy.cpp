@@ -40,6 +40,7 @@
 #include "../utility/eesm-effective-sinr.h"
 #include "enb-lte-phy.h"
 #include "../utility/ComputePathLoss.h"
+#include <map>
 
 /*
  * Noise is computed as follows:
@@ -131,18 +132,23 @@ UeLtePhy::StartRx (PacketBurst* p, TransmittedSignal* txSignal)
   rxSignalValues = txSignal->Getvalues();
 
   //compute noise + interference
-  double interference;
-  if (GetInterference () != NULL)
-    {
-      interference = GetInterference ()->ComputeInterference ((UserEquipment*) GetDevice ());
-    }
-  else
-    {
-	  interference = 0;
-    }
+  std::map<int, double> rsrp;
+  double tot_interference = 0;
+  UserEquipment* ue = (UserEquipment*)GetDevice();
+  if (GetInterference () != NULL) {
+    rsrp = GetInterference ()->ComputeInterference (ue);
+  }
 
-  double noise_interference = 10. * log10 (pow(10., NOISE/10) + interference); // dB
+  for (auto it = rsrp.begin(); it != rsrp.end(); ++it) {
+    // exclude the serving cell
+    if (it->first != ue->GetTargetNode()->GetIDNetworkNode()) {
+      tot_interference += it->second;
+    }
+  }
 
+  double noise_interference = 10. * log10 (pow(10., NOISE/10) + tot_interference); // dB
+  double avg_rsrp = 0;
+  double avg_sinr = 0;
 
   for (it = rxSignalValues.begin(); it != rxSignalValues.end(); it++)
     {
@@ -156,7 +162,16 @@ UeLtePhy::StartRx (PacketBurst* p, TransmittedSignal* txSignal)
           power = 0.;
         }
       m_measuredSinr.push_back (power - noise_interference);
+      avg_rsrp += power;
+      avg_sinr += (power - noise_interference);
     }
+    
+  avg_rsrp /= rxSignalValues.size();
+  avg_sinr /= rxSignalValues.size();
+  std::cout << "\t UE(" << ue->GetIDNetworkNode() << ")"
+    << " real RSRP(db) from serving eNB " << avg_rsrp
+    << " noise(db) " << NOISE << " interference(db) " << 10 * log10(tot_interference)
+    << " SINR(db) " << avg_sinr << std::endl;
 
   //CHECK FOR PHY ERROR
   bool phyError;
@@ -209,7 +224,7 @@ UeLtePhy::StartRx (PacketBurst* p, TransmittedSignal* txSignal)
     }
 
   //CQI report
-  CreateCqiFeedbacks (m_measuredSinr);
+  CreateCqiFeedbacks (m_measuredSinr, rsrp);
 
   m_channelsForRx.clear ();
   m_channelsForTx.clear ();
@@ -221,7 +236,8 @@ UeLtePhy::StartRx (PacketBurst* p, TransmittedSignal* txSignal)
 }
 
 void
-UeLtePhy::CreateCqiFeedbacks (std::vector<double> sinr)
+UeLtePhy::CreateCqiFeedbacks (std::vector<double> sinr,
+  std::map<int, double> rsrp)
 {
   UserEquipment* thisNode = (UserEquipment*) GetDevice ();
   if (thisNode->GetCqiManager ()->NeedToSendFeedbacks ())

@@ -85,6 +85,7 @@ LteChannel::StartRx (PacketBurst* p, TransmittedSignal* txSignal, NetworkNode* s
 #ifdef TEST_DEVICE_ON_CHANNEL
           std::cout << "LteChannel::StartRx add propagation loss" << std::endl;
 #endif
+      // AddLossModel covers the propagation signal loss(multipath, etc)
 		  rxSignal = GetPropagationLossModel ()->AddLossModel (src, dst, txSignal);
 	    }
 	  else
@@ -92,7 +93,8 @@ LteChannel::StartRx (PacketBurst* p, TransmittedSignal* txSignal, NetworkNode* s
 		  rxSignal = txSignal->Copy ();
 	    }
 
-	  //DELIVERY THE BURST OF PACKETS
+	  // DELIVERY THE BURST OF PACKETS
+    // StartRx covers the device noise and signal inteference from other enbs
 	  dst->GetPhy ()->StartRx (p->Copy (), rxSignal);
     }
 

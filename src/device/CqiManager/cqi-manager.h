@@ -23,6 +23,7 @@
 #define CQIMANAGER_H_
 
 #include <vector>
+#include <map>
 
 class NetworkNode;
 
@@ -66,6 +67,8 @@ private:
 	long int m_lastSent;
 
 	NetworkNode* m_device;
+
+  std::map<int, double> neighbor_rsrp;
 
 };
 

@@ -35,12 +35,13 @@ Interference::Interference()
 Interference::~Interference()
 {}
 
-double
+std::map<int, double>
 Interference::ComputeInterference (UserEquipment *ue)
 {
   ENodeB *node;
 
-  double interference = 0;
+  std::map<int, double> rsrp;
+  double tot_interference = 0;
 
   std::vector<ENodeB*> *eNBs = NetworkManager::Init ()->GetENodeBContainer ();
   std::vector<ENodeB*>::iterator it;
@@ -50,8 +51,7 @@ Interference::ComputeInterference (UserEquipment *ue)
   for (it = eNBs->begin (); it != eNBs->end (); it++)
     {
 	  node = (*it);
-	  if (node->GetIDNetworkNode () != ue->GetTargetNode ()->GetIDNetworkNode () &&
-			  node->GetPhy ()->GetBandwidthManager ()->GetDlOffsetBw () ==
+	  if (node->GetPhy ()->GetBandwidthManager ()->GetDlOffsetBw () ==
 			  ue->GetTargetNode ()->GetPhy ()->GetBandwidthManager ()->GetDlOffsetBw ())
 	    {
 		  double powerTXForSubBandwidth = 10 * log10 (
@@ -63,15 +63,22 @@ Interference::ComputeInterference (UserEquipment *ue)
           double nodeInterference_db = powerTXForSubBandwidth - 10 - ComputePathLossForInterference (node, ue); // in dB
           double nodeInterference = pow(10, nodeInterference_db/10);
 
-          interference += nodeInterference;
-
-          /*
-		  std::cout << "\t add interference from eNB " << node->GetIDNetworkNode ()
-				  << " " << powerTXForSubBandwidth << " "  << ComputePathLossForInterference (node, ue)
-				  << " " << nodeInterference_db << " " << nodeInterference
-				  << " --> tot: " << interference
-				  << std::endl;
-		  */
+          rsrp[node->GetIDNetworkNode()] = nodeInterference;
+          if (node->GetIDNetworkNode() != ue->GetTargetNode()->GetIDNetworkNode()) {
+            tot_interference += nodeInterference;
+            std::cout << "\t UE(" << ue->GetIDNetworkNode() << ")"
+              << " interference from eNB " << node->GetIDNetworkNode()
+				      // << " " << powerTXForSubBandwidth << " "  << ComputePathLossForInterference (node, ue)
+				      << " db:" << nodeInterference_db << " watt:" << nodeInterference
+				      // << " --> tot: " << tot_interference
+				      << std::endl;
+          }
+          else {
+            std::cout << "\t UE(" << ue->GetIDNetworkNode() << ")"
+              << " RSRP from serving eNB " << node->GetIDNetworkNode()
+              << " db:" << nodeInterference_db << " watt:" << nodeInterference
+              << std::endl;
+          }
 	    }
     }
 
@@ -81,6 +88,7 @@ Interference::ComputeInterference (UserEquipment *ue)
 
   //std::cout << "Compute interference for UE " << ue->GetIDNetworkNode () << " ,target node " << ue->GetTargetNode ()->GetIDNetworkNode ()<< std::endl;
 
+  /*
   for (it2 = HeNBs->begin (); it2 != HeNBs->end (); it2++)
     {
 	  henb = (*it2);
@@ -100,15 +108,14 @@ Interference::ComputeInterference (UserEquipment *ue)
 
           interference += nodeInterference;
 
-          /*
-		  std::cout << "\t add interference from eNB " << node->GetIDNetworkNode ()
-				  << " " << powerTXForSubBandwidth << " "  << ComputePathLossForInterference (node, ue)
-				  << " " << nodeInterference_db << " " << nodeInterference
-				  << " --> tot: " << interference
-				  << std::endl;
-		  */
+		  // std::cout << "\t add interference from eNB " << node->GetIDNetworkNode ()
+			// 	  << " " << powerTXForSubBandwidth << " "  << ComputePathLossForInterference (node, ue)
+			// 	  << " " << nodeInterference_db << " " << nodeInterference
+			// 	  << " --> tot: " << interference
+			// 	  << std::endl;
 	    }
     }
+  */
 
-  return interference;
+  return rsrp;
 }
